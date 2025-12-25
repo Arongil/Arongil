@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Merry Christmas, Grammy & Granddaddy!</title>
+    <link rel="apple-touch-icon" sizes="144x144" href="/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Crimson Text', Georgia, serif;
+            background: linear-gradient(135deg, #1a472a 0%, #2d5016 50%, #1a472a 100%);
+            min-height: 100vh;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        .snowflakes {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .snowflake {
+            position: absolute;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.5em;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(-10vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(110vh) rotate(360deg); opacity: 0.3; }
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            text-align: center;
+            font-size: 3em;
+            margin-bottom: 10px;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.3);
+            color: #ffd700;
+        }
+
+        .subtitle {
+            text-align: center;
+            font-size: 1.4em;
+            margin-bottom: 50px;
+            font-style: italic;
+            color: #f0e6d3;
+        }
+
+        .poem-card {
+            background: linear-gradient(145deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0.05) 100%);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 40px;
+            border: 2px solid rgba(255, 215, 0, 0.3);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .poem-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,215,0,0.1) 0%, transparent 50%);
+            animation: shimmer 5s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+            0%, 100% { transform: translate(-25%, -25%); }
+            50% { transform: translate(25%, 25%); }
+        }
+
+        .poem-card h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2em;
+            margin-bottom: 25px;
+            color: #ffd700;
+            text-align: center;
+            position: relative;
+        }
+
+        .poem-card h2::after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #c41e3a, #ffd700, #c41e3a, transparent);
+            margin: 15px auto 0;
+        }
+
+        .poem {
+            font-size: 1.25em;
+            line-height: 1.9;
+            text-align: center;
+            white-space: pre-line;
+            position: relative;
+            color: #f5f5f5;
+        }
+
+        .read-button {
+            display: block;
+            margin: 30px auto 0;
+            padding: 15px 40px;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2em;
+            background: linear-gradient(145deg, #c41e3a, #8b0000);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(196, 30, 58, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .read-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(196, 30, 58, 0.6);
+        }
+
+        .read-button:active {
+            transform: translateY(0);
+        }
+
+        .read-button.speaking {
+            background: linear-gradient(145deg, #228b22, #006400);
+            box-shadow: 0 5px 20px rgba(34, 139, 34, 0.4);
+        }
+
+        .holly {
+            text-align: center;
+            font-size: 2em;
+            margin: 20px 0;
+        }
+
+        .confetti {
+            position: fixed;
+            width: 12px;
+            height: 12px;
+            pointer-events: none;
+            z-index: 1000;
+            animation: confetti-fall 3s ease-out forwards;
+        }
+
+        @keyframes confetti-fall {
+            0% {
+                transform: translateY(0) rotate(0deg) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(720deg) scale(0.5);
+                opacity: 0;
+            }
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 1.1em;
+            color: #f0e6d3;
+        }
+
+        .heart {
+            color: #c41e3a;
+            animation: pulse 1.5s ease-in-out infinite;
+            display: inline-block;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+    </style>
+</head>
+<body>
+    <div class="snowflakes" id="snowflakes"></div>
+
+    <div class="container">
+        <h1>Merry Christmas!</h1>
+        <p class="subtitle">With love for Grammy & Granddaddy</p>
+
+        <div class="poem-card">
+            <h2>For Grammy</h2>
+            <div class="poem" id="grammy-poem">Dear Grammy, whose heart overflows with such grace,
+A warmth like the sun lights your dear, loving face.
+You taught us that legacies bloom from the heart,
+That living with purpose is life's truest art.
+
+From Wellesley's halls to the lives that you've changed,
+Your wisdom and kindness have never been strange.
+A pioneer blazing trails bright and new,
+Helping others find paths that are honest and true.
+
+Your flute fills the air with such sweet melody,
+A song of devotion to your whole family.
+You've shown us that age is just time to grow wise,
+To cherish each moment, each laugh, every sunrise.
+
+This Christmas we celebrate all that you are:
+Our Grammy, our guide, our own Northern Star.
+With love overflowing, we thank you today
+For showing us life in your own special way.</div>
+            <button class="read-button" onclick="readPoem('grammy')">
+                Read Aloud
+            </button>
+        </div>
+
+        <p class="holly"></p>
+
+        <div class="poem-card">
+            <h2>For Granddaddy</h2>
+            <div class="poem" id="granddaddy-poem">Dear Granddaddy, scholar of health and of care,
+A mind so distinguished, a heart beyond rare.
+From Harvard's proud halls to the RAND days of old,
+You've written the chapters where great truths are told.
+
+A Fulbright young scholar who ventured afar,
+Then rose to become an illustrious star.
+For thirty long years, you shaped how we know
+The economics of health and how systems can grow.
+
+Distinguished and honored, yet humble you stay,
+Still teaching, still learning, still finding your way.
+MacArthur Professor, a title well-earned,
+For the millions of lives your research has turned.
+
+But greater than papers and prizes so grand,
+Is the way that you've held your dear family's hand.
+This Christmas we honor the man that you are:
+Our Granddaddy, our hero, our own guiding star.
+
+With love and with gratitude, now and always,
+We cherish these moments, these warm holiday days.</div>
+            <button class="read-button" onclick="readPoem('granddaddy')">
+                Read Aloud
+            </button>
+        </div>
+
+        <p class="footer">
+            Made with <span class="heart">love</span> for the best grandparents in the world
+            <br><br>
+            Christmas 2024
+        </p>
+    </div>
+
+    <script>
+        // Create falling snowflakes
+        function createSnowflakes() {
+            const container = document.getElementById('snowflakes');
+            const snowflakeChars = ['*', '*', '*'];
+
+            for (let i = 0; i < 50; i++) {
+                const snowflake = document.createElement('div');
+                snowflake.className = 'snowflake';
+                snowflake.innerHTML = snowflakeChars[Math.floor(Math.random() * snowflakeChars.length)];
+                snowflake.style.left = Math.random() * 100 + 'vw';
+                snowflake.style.animationDuration = (Math.random() * 5 + 5) + 's';
+                snowflake.style.animationDelay = (Math.random() * 10) + 's';
+                snowflake.style.fontSize = (Math.random() * 1 + 0.5) + 'em';
+                container.appendChild(snowflake);
+            }
+        }
+
+        // Create confetti explosion
+        function createConfetti() {
+            const colors = ['#c41e3a', '#228b22', '#ffd700', '#ff6b6b', '#2d5016', '#dc143c', '#006400'];
+            const shapes = ['circle', 'square', 'triangle'];
+
+            for (let i = 0; i < 100; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti';
+
+                    const color = colors[Math.floor(Math.random() * colors.length)];
+                    const shape = shapes[Math.floor(Math.random() * shapes.length)];
+
+                    confetti.style.backgroundColor = color;
+                    confetti.style.left = (Math.random() * 100) + 'vw';
+                    confetti.style.top = '-20px';
+
+                    if (shape === 'circle') {
+                        confetti.style.borderRadius = '50%';
+                    } else if (shape === 'triangle') {
+                        confetti.style.width = '0';
+                        confetti.style.height = '0';
+                        confetti.style.backgroundColor = 'transparent';
+                        confetti.style.borderLeft = '6px solid transparent';
+                        confetti.style.borderRight = '6px solid transparent';
+                        confetti.style.borderBottom = '12px solid ' + color;
+                    }
+
+                    confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
+
+                    document.body.appendChild(confetti);
+
+                    setTimeout(() => confetti.remove(), 3000);
+                }, i * 30);
+            }
+        }
+
+        // Text-to-speech functionality
+        let currentUtterance = null;
+        let speakingButton = null;
+
+        function readPoem(grandparent) {
+            const poemElement = document.getElementById(grandparent + '-poem');
+            const button = poemElement.parentElement.querySelector('.read-button');
+
+            // If already speaking this poem, stop it
+            if (speakingButton === button && window.speechSynthesis.speaking) {
+                window.speechSynthesis.cancel();
+                button.classList.remove('speaking');
+                button.textContent = 'Read Aloud';
+                speakingButton = null;
+                return;
+            }
+
+            // Stop any current speech
+            window.speechSynthesis.cancel();
+            if (speakingButton) {
+                speakingButton.classList.remove('speaking');
+                speakingButton.textContent = 'Read Aloud';
+            }
+
+            // Fire confetti!
+            createConfetti();
+
+            // Get the poem text
+            const poemText = poemElement.textContent;
+
+            // Create utterance
+            currentUtterance = new SpeechSynthesisUtterance(poemText);
+            currentUtterance.rate = 0.85;
+            currentUtterance.pitch = 1;
+
+            // Update button state
+            button.classList.add('speaking');
+            button.textContent = 'Stop Reading';
+            speakingButton = button;
+
+            // Handle end of speech
+            currentUtterance.onend = () => {
+                button.classList.remove('speaking');
+                button.textContent = 'Read Aloud';
+                speakingButton = null;
+            };
+
+            currentUtterance.onerror = () => {
+                button.classList.remove('speaking');
+                button.textContent = 'Read Aloud';
+                speakingButton = null;
+            };
+
+            // Speak!
+            window.speechSynthesis.speak(currentUtterance);
+        }
+
+        // Initialize snowflakes
+        createSnowflakes();
+    </script>
+</body>
+</html>
